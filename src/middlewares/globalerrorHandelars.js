@@ -3,10 +3,12 @@ import handleZod from "./handleZodError.js";
 import handleValidationError from "./handleValidationError.js";
 import handleCastError from "./handleCastError.js";
 import handleDuplicateError from "./handleDuplicateError.js";
+import AppError from "./AppErrors.js";
+import path from "path";
 
 
 
-const globalErrorHandelar=(err,re,res,next)=>{
+const globalErrorHandelar=(err,req,res,next)=>{
     // default 
 
     let statusCode=500;
@@ -47,6 +49,20 @@ const globalErrorHandelar=(err,re,res,next)=>{
             statusCode=simplifierError.statusCode;
             message=simplifierError.message;
             errorMessages=simplifierError.errorMessages;
+        }
+
+        // ********************************************AppError *******************************
+
+        else if (err instanceof AppError ){
+            statusCode=err=statusCode;
+            message:err.message;
+            errorMessages=[
+                {
+                    path:'',
+                    message:err.message
+                }
+            ]
+
         }
 
             else if(err instanceof Error){
