@@ -8,7 +8,7 @@ const handleValidationError=(err)=>{
     return {
         statusCode:400,
         message:" validation error mongoose ",
-        errorMessage:errors,
+        errorMessages:errors,
     }
 }
 
