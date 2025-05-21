@@ -1,17 +1,15 @@
-import z from 'zod';
+import z from 'zod'
 
-
-const CretateUserZodSchema=z.object({
-    body:z.object({
-        name:z.string({
-            required_error:"Name is required"
-        }),
-        email: z
+const CretateUserZodSchema = z.object({
+  body: z.object({
+    name: z.string({ required_error: 'Name is required' }),
+    email: z
       .string({ required_error: 'Email is required' })
-      .email('Email must be a valid email'),
+      .email('Email must be valid'),
+    password: z
+      .string({ required_error: 'Password is required' })
+      .min(6, 'Password must be at least 6 characters'),
   }),
-    
-})
-
+});
 
 export const UserValidationSchema={CretateUserZodSchema}

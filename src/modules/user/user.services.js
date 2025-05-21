@@ -1,7 +1,12 @@
 import { UserModel } from "./use.model.js"
 
-const CreateUser=async(userData)=>{
-    const result= await UserModel.create(userData);
+const CreateUser=async(payLoad)=>{
+
+    const isExists=await UserModel.findOne({email:payLoad.email});
+    if(isExists){
+        throw new Error (" Emaill already registred ")
+    }
+    const result= await UserModel.create(payLoad);
     return result
 }
 
