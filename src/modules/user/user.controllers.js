@@ -1,3 +1,4 @@
+import { success } from "zod/v4";
 import { UserService } from "./user.services.js";
 
 const CreateUserControllers=async(req,res)=>{
@@ -22,7 +23,26 @@ const result=await UserService.CreateUser(userData);
     }
 }
 
+// logIn Controllers
 
+const logInControllers=async(req,res)=>{
+    try{
+        const {email,password}=req.body;
+        const result=await  UserService.LoginUser(email,password);
+        res.status(200).json({
+            success:true,
+            message:"Log in SuccessFully",
+            data:result
+        })
+
+    }catch(err){
+        res.status(401).json({
+            success:false,
+            message:"login failed ",
+            error:err.message
+        })
+    }
+}
 
 const getAllUsersControllers=async(req,res)=>{
     try{
@@ -49,5 +69,6 @@ const result=await UserService.GetAllUsers();
 
 export const UserControllers={
     CreateUserControllers,
-    getAllUsersControllers
+    getAllUsersControllers,
+    logInControllers
 }

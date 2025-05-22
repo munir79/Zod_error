@@ -22,6 +22,9 @@ const globalErrorHandelar = (err, req, res, next) => {
   }
 
   // ****************************validation error ************************************************
+
+
+  
   else if (err.name === 'ValidationError') {
     const simplifierError = handleValidationError(err);
     statusCode = simplifierError.statusCode;
